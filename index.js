@@ -71,9 +71,8 @@ app.delete('/api/flavors/:id', async (req, res, next) => {
         WHERE id =$1;
         `;
         const id = req.params.id
-        const response = await client.query(SQL [id]);
-        res.sendStatus(204)
-        res.send(response.rows);
+        await client.query(SQL [id]);
+        res.sendStatus(204);
     } catch (error) {
         next(error);
     };
@@ -95,10 +94,11 @@ const init = async () => {
     `;
     await client.query(SQL);
     console.log('tables created');
-     SQL=`
-    INSERT INTO flavors (flavor, is_favorite) VALUEs('vanilla', false);
-    INSERT INTO flavors (flavor, is_favorite) VALUEs('chocolate',false);
-    INSERT INTO flavors (flavor, is_favorite) VALUEs('strawberry', true);
+
+    SQL=`
+    INSERT INTO flavors (flavor, is_favorite) VALUES('vanilla', false);
+    INSERT INTO flavors (flavor, is_favorite) VALUES('chocolate',false);
+    INSERT INTO flavors (flavor, is_favorite) VALUES('strawberry', true);
     `
     await client.query(SQL);
     console.log('data seeded');
