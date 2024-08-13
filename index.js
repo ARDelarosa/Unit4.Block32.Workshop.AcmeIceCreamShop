@@ -71,7 +71,7 @@ app.delete('/api/flavors/:id', async (req, res, next) => {
         WHERE id =$1;
         `;
         const id = req.params.id
-        await client.query(SQL [id]);
+        await client.query(SQL, [id]);
         res.sendStatus(204);
     } catch (error) {
         next(error);
